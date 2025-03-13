@@ -10,11 +10,24 @@ path:focus:not(:focus-visible) {
     outline: none;
 }
 
+/* Ensure hover states work */
+path:hover {
+    cursor: pointer;
+}
+
+/* Active state */
+path:active {
+    opacity: 0.8;
+}
+
 /* Ensure sufficient color contrast */
 .tooltip {
     background-color: #ffffff;
     color: #000000;
     border: 1px solid #333333;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* Ensure interactive elements are large enough */
@@ -33,11 +46,24 @@ path:focus:not(:focus-visible) {
     outline: none;
 }
 
+/* Ensure hover states work */
+path:hover {
+    cursor: pointer;
+}
+
+/* Active state */
+path:active {
+    opacity: 0.8;
+}
+
 /* Ensure sufficient color contrast */
 .tooltip {
     background-color: #ffffff;
     color: #000000;
     border: 1px solid #333333;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* Ensure interactive elements are large enough */

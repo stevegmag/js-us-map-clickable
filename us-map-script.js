@@ -1,36 +1,3 @@
-
-// allow for any svg with id'd paths to be clickable - mapped ids to links
-// allow for image upload 
-// allow for image paths to be displayed
-// each image path will have configurable options
-  // hover effect / color
-  // hover description
-  // link
-  // link target
-  // label    
-  // export the relationships to a json file that is automatically linked
-// allow for image paths to be marked as unclickable
-// allow for new paths to be added as clickable areas without changing the svg   
-// Initially built for this map::: ./us-states.svg 
-
-// const clickListener = function(evt) {
-//   console.log('you clicked on: ', evt.target.id);
-// };
-
-// const mapPathClick = function() {
-//   const paths = document.querySelectorAll('svg path');
-//   paths.forEach(path => {
-//     path.addEventListener('click', (evt) => {
-
-//       clickListener(evt);
-//     });
-//   });
-// };
-
-// exports.mapPathClick = mapPathClick;
-// exports.clickListener = clickListener;
-
-/* ----- */
 /**
  * US Map SVG Integration with State Data
  * 
@@ -86,20 +53,78 @@ function initializeStateMap(options = {}) {
     const svgDoc = mapObject.contentDocument;
     const statePaths = svgDoc.querySelectorAll('path');
     
-    statePaths.forEach(path => {
+    // Sort states from west to east for logical tab order
+    const sortedPaths = Array.from(statePaths).sort((a, b) => {
+      const rectA = a.getBBox();
+      const rectB = b.getBBox();
+      return (rectA.x + rectA.width/2) - (rectB.x + rectB.width/2);
+    });
+    
+    sortedPaths.forEach((path, index) => {
       const stateAbbr = path.id;
-      originalColors[stateAbbr] = path.getAttribute('fill');
+      // Store the original style string
+      const originalStyle = path.getAttribute('style');
+      // Parse out the original fill color
+      const fillMatch = originalStyle.match(/fill:#([^;]+)/);
+      originalColors[stateAbbr] = fillMatch ? `#${fillMatch[1]}` : '#f9f9f9';
+      
       const state = stateMap[stateAbbr];
       
       if (state) {
-        // Make state focusable
-        path.setAttribute('tabindex', '0');
+        // Set tabindex based on position (west to east)    
+        path.setAttribute('tabindex', index + 1);
         
         // Add ARIA attributes
         path.setAttribute('role', 'button');
         path.setAttribute('aria-label', `${state.name}: ${state.description}`);
         
-        // Add keyboard support
+        // Add mouse events
+        path.addEventListener('mouseenter', function(e) {
+          const currentStyle = path.getAttribute('style');
+          const newStyle = currentStyle.replace(
+            /fill:#[^;]+/, 
+            `fill:${state.hoverColor || '#999'}`
+          );
+          path.setAttribute('style', newStyle);
+          path.setAttribute('aria-expanded', 'true');
+          
+          if (config.showTooltip) {
+            tooltip.innerHTML = `
+              <h3>${state.name} (${state.abbreviation})</h3>
+              <p>${state.description}</p>
+              <a href="${state.linkUrl}" 
+                 target="${state.linkTarget}"
+                 aria-label="Visit ${state.name} website">
+                 ${state.linkLabel}
+              </a>
+            `;
+            tooltip.style.display = 'block';
+            updateTooltipPosition(e);
+          }
+        });
+
+        path.addEventListener('mouseleave', function() {
+          const currentStyle = path.getAttribute('style');
+          const newStyle = currentStyle.replace(
+            /fill:#[^;]+/, 
+            `fill:${originalColors[stateAbbr]}`
+          );
+          path.setAttribute('style', newStyle);
+          path.setAttribute('aria-expanded', 'false');
+          if (config.showTooltip) {
+            tooltip.style.display = 'none';
+          }
+        });
+
+        // Add click and keyboard activation handlers
+        const activateState = () => {
+          if (config.enableLinks) {
+            window.open(state.linkUrl, state.linkTarget);
+          }
+        };
+
+        path.addEventListener('click', activateState);
+        
         path.addEventListener('keydown', function(e) {
           const currentState = e.target;
           const currentRect = currentState.getBBox();
@@ -113,15 +138,13 @@ function initializeStateMap(options = {}) {
             case 'Enter':
             case ' ':
               e.preventDefault();
-              if (config.enableLinks) {
-                window.open(state.linkUrl, state.linkTarget);
-              }
+              activateState();
               break;
               
             case 'ArrowLeft':
             case 'Left':
               e.preventDefault();
-              statePaths.forEach(state => {
+              sortedPaths.forEach(state => {
                 const stateRect = state.getBBox();
                 const stateX = stateRect.x + (stateRect.width / 2);
                 const stateY = stateRect.y + (stateRect.height / 2);
@@ -139,7 +162,7 @@ function initializeStateMap(options = {}) {
             case 'ArrowRight':
             case 'Right':
               e.preventDefault();
-              statePaths.forEach(state => {
+              sortedPaths.forEach(state => {
                 const stateRect = state.getBBox();
                 const stateX = stateRect.x + (stateRect.width / 2);
                 const stateY = stateRect.y + (stateRect.height / 2);
@@ -157,7 +180,7 @@ function initializeStateMap(options = {}) {
             case 'ArrowUp':
             case 'Up':
               e.preventDefault();
-              statePaths.forEach(state => {
+              sortedPaths.forEach(state => {
                 const stateRect = state.getBBox();
                 const stateX = stateRect.x + (stateRect.width / 2);
                 const stateY = stateRect.y + (stateRect.height / 2);
@@ -175,7 +198,7 @@ function initializeStateMap(options = {}) {
             case 'ArrowDown':
             case 'Down':
               e.preventDefault();
-              statePaths.forEach(state => {
+              sortedPaths.forEach(state => {
                 const stateRect = state.getBBox();
                 const stateX = stateRect.x + (stateRect.width / 2);
                 const stateY = stateRect.y + (stateRect.height / 2);
@@ -199,23 +222,31 @@ function initializeStateMap(options = {}) {
           }
         });
 
-        // Existing mouse events...
-        path.addEventListener('mouseenter', function(e) {
-          path.setAttribute('fill', state.hoverColor);
-          path.setAttribute('aria-expanded', 'true');
+        // Add focus/blur handlers
+        path.addEventListener('focus', function(e) {
+          const currentStyle = path.getAttribute('style');
+          const newStyle = currentStyle.replace(
+            /fill:#[^;]+/, 
+            `fill:${state.hoverColor || '#999'}`
+          );
+          path.setAttribute('style', newStyle);
+          // Trigger tooltip on focus
+          const mouseenterEvent = new Event('mouseenter');
+          path.dispatchEvent(mouseenterEvent);
           
+          // Update current state indicator
+          currentStateIndicator.textContent = `Current state: ${state.name}`;
+        });
+
+        path.addEventListener('blur', function() {
+          const currentStyle = path.getAttribute('style');
+          const newStyle = currentStyle.replace(
+            /fill:#[^;]+/, 
+            `fill:${originalColors[stateAbbr]}`
+          );
+          path.setAttribute('style', newStyle);
           if (config.showTooltip) {
-            tooltip.innerHTML = `
-              <h3>${state.name} (${state.abbreviation})</h3>
-              <p>${state.description}</p>
-              <a href="${state.linkUrl}" 
-                 target="${state.linkTarget}"
-                 aria-label="Visit ${state.name} website">
-                 ${state.linkLabel}
-              </a>
-            `;
-            tooltip.style.display = 'block';
-            updateTooltipPosition(e);
+            tooltip.style.display = 'none';
           }
         });
       }
@@ -227,8 +258,23 @@ function initializeStateMap(options = {}) {
     legend.innerHTML = `
       <h3>United States Interactive Map</h3>
       <p>Hover over a state to see details${config.enableLinks ? '. Click to visit the state website' : ''}.</p>
+      <p class="keyboard-instructions">
+        Use the tab or arrow keys to navigate between states, Enter or Space to go to the state's website/details.
+      </p>
     `;
     mapContainer.insertBefore(legend, document.getElementById(config.mapId));
+
+    // Add to your setupMap function
+    const currentStateIndicator = document.createElement('div');
+    currentStateIndicator.setAttribute('role', 'status');
+    currentStateIndicator.setAttribute('aria-live', 'polite');
+    currentStateIndicator.className = 'current-state';
+    mapContainer.appendChild(currentStateIndicator);
+
+    // Update the indicator when state changes
+    path.addEventListener('focus', function() {
+        currentStateIndicator.textContent = `Current state: ${state.name}`;
+    });
   }
   
   // Function to update tooltip position
@@ -279,7 +325,7 @@ function initializeStateMap(options = {}) {
         console.log('response.ok', data);
         return data;
       })
-      .then(data => {
+      .then(data => { 
         setupMap(data);
       })
       .catch(error => {
