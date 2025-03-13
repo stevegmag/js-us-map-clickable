@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>US Map</title>
+    <link rel="stylesheet" href="./us-map-style.css">
+    <script src="./us-map-script.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Interactive United States Map</h1>
+      <div class="container" role="region" aria-label="Interactive map of the United States">
+        <div class="map">
+          <object id="us-map" 
+                  type="image/svg+xml" 
+                  data="./us-states.svg"
+                  aria-label="Map of the United States with clickable states">
+            Your browser does not support SVG
+          </object>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

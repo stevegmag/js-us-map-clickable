@@ -1,0 +1,454 @@
+{
+  "states": [
+    {
+      "name": "Alabama",
+      "abbreviation": "AL",
+      "description": "Alabama is known as the 'Heart of Dixie' and features beautiful beaches, space exploration history at the U.S. Space & Rocket Center, and the civil rights landmarks of Birmingham.",
+      "linkUrl": "https://alabama.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Alabama",
+      "hoverColor": "#D14F4F"
+    },
+    {
+      "name": "Alaska",
+      "abbreviation": "AK",
+      "description": "Alaska, the largest U.S. state by area, is known for its diverse terrain of mountains, forests, and arctic tundra, with abundant wildlife and small towns.",
+      "linkUrl": "https://alaska.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Alaska",
+      "hoverColor": "#4F86D1"
+    },
+    {
+      "name": "Arizona",
+      "abbreviation": "AZ",
+      "description": "Arizona is famed for the Grand Canyon, the red rocks of Sedona, Desert Botanical Garden, and the vibrant culture of cities like Phoenix and Tucson.",
+      "linkUrl": "https://az.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Arizona",
+      "hoverColor": "#FF7F50"
+    },
+    {
+      "name": "Arkansas",
+      "abbreviation": "AR",
+      "description": "Arkansas, the 'Natural State,' offers the Ozark Mountains, Hot Springs National Park, and the Clinton Presidential Center in Little Rock.",
+      "linkUrl": "https://portal.arkansas.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Arkansas",
+      "hoverColor": "#8FBC8F"
+    },
+    {
+      "name": "California",
+      "abbreviation": "CA",
+      "description": "California features diverse attractions from Hollywood and Disneyland to Yosemite National Park, wine country, and the iconic Golden Gate Bridge.",
+      "linkUrl": "https://www.ca.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit California",
+      "hoverColor": "#FFD700"
+    },
+    {
+      "name": "Colorado",
+      "abbreviation": "CO",
+      "description": "Colorado is known for the Rocky Mountains, world-class skiing, Denver's cultural scenes, and outdoor adventures in all seasons.",
+      "linkUrl": "https://www.colorado.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Colorado",
+      "hoverColor": "#4682B4"
+    },
+    {
+      "name": "Connecticut",
+      "abbreviation": "CT",
+      "description": "Connecticut, one of the original 13 colonies, offers historic coastal towns, Yale University, and proximity to both Boston and New York City.",
+      "linkUrl": "https://portal.ct.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Connecticut",
+      "hoverColor": "#6495ED"
+    },
+    {
+      "name": "Delaware",
+      "abbreviation": "DE",
+      "description": "Delaware, the first state to ratify the Constitution, features tax-free shopping, historic sites, and beautiful beaches along the Atlantic coast.",
+      "linkUrl": "https://delaware.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Delaware",
+      "hoverColor": "#5F9EA0"
+    },
+    {
+      "name": "Florida",
+      "abbreviation": "FL",
+      "description": "Florida, the 'Sunshine State,' is famous for its theme parks, beaches, the Everglades, vibrant Miami culture, and Kennedy Space Center.",
+      "linkUrl": "https://www.myflorida.com",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Florida",
+      "hoverColor": "#FF6347"
+    },
+    {
+      "name": "Georgia",
+      "abbreviation": "GA",
+      "description": "Georgia combines southern charm with urban culture, featuring Atlanta's attractions, coastal Savannah, and the beautiful North Georgia mountains.",
+      "linkUrl": "https://georgia.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Georgia",
+      "hoverColor": "#F08080"
+    },
+    {
+      "name": "Hawaii",
+      "abbreviation": "HI",
+      "description": "Hawaii is a tropical paradise with volcanic landscapes, world-famous beaches, Polynesian culture, and the historic Pearl Harbor site.",
+      "linkUrl": "https://portal.ehawaii.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Hawaii",
+      "hoverColor": "#32CD32"
+    },
+    {
+      "name": "Idaho",
+      "abbreviation": "ID",
+      "description": "Idaho offers spectacular wilderness areas, the resort town of Sun Valley, white-water rafting, and Craters of the Moon National Monument.",
+      "linkUrl": "https://www.idaho.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Idaho",
+      "hoverColor": "#87CEFA"
+    },
+    {
+      "name": "Illinois",
+      "abbreviation": "IL",
+      "description": "Illinois is home to Chicago's iconic skyline, rich prairie lands, the Abraham Lincoln Presidential Library, and Route 66 attractions.",
+      "linkUrl": "https://www2.illinois.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Illinois",
+      "hoverColor": "#4169E1"
+    },
+    {
+      "name": "Indiana",
+      "abbreviation": "IN",
+      "description": "Indiana features the Indianapolis Motor Speedway, beautiful state parks, Amish country, and charming small towns across the Hoosier state.",
+      "linkUrl": "https://www.in.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Indiana",
+      "hoverColor": "#9370DB"
+    },
+    {
+      "name": "Iowa",
+      "abbreviation": "IA",
+      "description": "Iowa combines agricultural heritage with cultural attractions like the Field of Dreams movie site, Amana Colonies, and the Iowa State Fair.",
+      "linkUrl": "https://www.iowa.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Iowa",
+      "hoverColor": "#FFFF00"
+    },
+    {
+      "name": "Kansas",
+      "abbreviation": "KS",
+      "description": "Kansas, the 'Sunflower State,' offers plains dotted with historic sites, the Cosmosphere space museum, and Tallgrass Prairie National Preserve.",
+      "linkUrl": "https://www.kansas.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Kansas",
+      "hoverColor": "#DAA520"
+    },
+    {
+      "name": "Kentucky",
+      "abbreviation": "KY",
+      "description": "Kentucky is known for horse racing, bourbon distilleries, Mammoth Cave National Park, and the Appalachian region's natural beauty.",
+      "linkUrl": "https://kentucky.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Kentucky",
+      "hoverColor": "#3CB371"
+    },
+    {
+      "name": "Louisiana",
+      "abbreviation": "LA",
+      "description": "Louisiana's unique cultural blend is reflected in New Orleans' French Quarter, bayou country, Creole cuisine, and vibrant music scenes.",
+      "linkUrl": "https://www.louisiana.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Louisiana",
+      "hoverColor": "#9932CC"
+    },
+    {
+      "name": "Maine",
+      "abbreviation": "ME",
+      "description": "Maine features rugged coastlines, Acadia National Park, historic lighthouses, and charming coastal towns with renowned seafood.",
+      "linkUrl": "https://www.maine.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Maine",
+      "hoverColor": "#008080"
+    },
+    {
+      "name": "Maryland",
+      "abbreviation": "MD",
+      "description": "Maryland offers Chesapeake Bay adventures, historic Annapolis, Baltimore's Inner Harbor, and proximity to Washington, D.C.",
+      "linkUrl": "https://www.maryland.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Maryland",
+      "hoverColor": "#B22222"
+    },
+    {
+      "name": "Massachusetts",
+      "abbreviation": "MA",
+      "description": "Massachusetts combines Revolutionary War history in Boston with the academic prestige of Harvard and MIT, Cape Cod beaches, and Berkshire Mountains.",
+      "linkUrl": "https://www.mass.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Massachusetts",
+      "hoverColor": "#CD5C5C"
+    },
+    {
+      "name": "Michigan",
+      "abbreviation": "MI",
+      "description": "Michigan is defined by the Great Lakes, automotive history in Detroit, Mackinac Island, and the natural beauty of the Upper Peninsula.",
+      "linkUrl": "https://www.michigan.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Michigan",
+      "hoverColor": "#4682B4"
+    },
+    {
+      "name": "Minnesota",
+      "abbreviation": "MN",
+      "description": "Minnesota, 'Land of 10,000 Lakes,' offers wilderness areas, the Mall of America, vibrant Twin Cities culture, and the headwaters of the Mississippi River.",
+      "linkUrl": "https://mn.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Minnesota",
+      "hoverColor": "#6B8E23"
+    },
+    {
+      "name": "Mississippi",
+      "abbreviation": "MS",
+      "description": "Mississippi's heritage includes blues music trails, antebellum homes, Gulf Coast beaches, and Civil Rights historical sites.",
+      "linkUrl": "https://www.ms.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Mississippi",
+      "hoverColor": "#FF4500"
+    },
+    {
+      "name": "Missouri",
+      "abbreviation": "MO",
+      "description": "Missouri features the Gateway Arch in St. Louis, Branson entertainment, Ozark Mountains, and Kansas City's jazz heritage and barbecue.",
+      "linkUrl": "https://www.mo.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Missouri",
+      "hoverColor": "#1E90FF"
+    },
+    {
+      "name": "Montana",
+      "abbreviation": "MT",
+      "description": "Montana, 'Big Sky Country,' is home to portions of Yellowstone and Glacier National Parks, vast wilderness areas, and authentic western heritage.",
+      "linkUrl": "https://mt.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Montana",
+      "hoverColor": "#708090"
+    },
+    {
+      "name": "Nebraska",
+      "abbreviation": "NE",
+      "description": "Nebraska combines agricultural traditions with attractions like the Henry Doorly Zoo, Chimney Rock, and the unique Sandhill Crane migration.",
+      "linkUrl": "https://www.nebraska.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Nebraska",
+      "hoverColor": "#A0522D"
+    },
+    {
+      "name": "Nevada",
+      "abbreviation": "NV",
+      "description": "Nevada is known for Las Vegas entertainment, Reno gaming, Lake Tahoe recreation, and vast desert landscapes with ghost towns.",
+      "linkUrl": "https://nv.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Nevada",
+      "hoverColor": "#C0C0C0"
+    },
+    {
+      "name": "New Hampshire",
+      "abbreviation": "NH",
+      "description": "New Hampshire offers White Mountain hiking, picturesque covered bridges, tax-free shopping, and beautiful fall foliage.",
+      "linkUrl": "https://www.nh.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit New Hampshire",
+      "hoverColor": "#9ACD32"
+    },
+    {
+      "name": "New Jersey",
+      "abbreviation": "NJ",
+      "description": "New Jersey features Atlantic City entertainment, Jersey Shore beaches, Princeton University, and easy access to New York City and Philadelphia.",
+      "linkUrl": "https://nj.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore New Jersey",
+      "hoverColor": "#FF6347"
+    },
+    {
+      "name": "New Mexico",
+      "abbreviation": "NM",
+      "description": "New Mexico, the 'Land of Enchantment,' blends Native American, Hispanic, and Anglo cultures with attractions like Santa Fe's art scene and Carlsbad Caverns.",
+      "linkUrl": "https://www.newmexico.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover New Mexico",
+      "hoverColor": "#FFA07A"
+    },
+    {
+      "name": "New York",
+      "abbreviation": "NY",
+      "description": "New York offers world-famous New York City alongside the natural beauty of the Adirondacks, Niagara Falls, and the Finger Lakes wine region.",
+      "linkUrl": "https://www.ny.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience New York",
+      "hoverColor": "#DC143C"
+    },
+    {
+      "name": "North Carolina",
+      "abbreviation": "NC",
+      "description": "North Carolina combines beaches, the Great Smoky Mountains, Research Triangle innovation, and Charlotte's urban appeal.",
+      "linkUrl": "https://www.nc.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit North Carolina",
+      "hoverColor": "#4169E1"
+    },
+    {
+      "name": "North Dakota",
+      "abbreviation": "ND",
+      "description": "North Dakota features Theodore Roosevelt National Park, Native American heritage sites, and the unique International Peace Garden.",
+      "linkUrl": "https://www.nd.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore North Dakota",
+      "hoverColor": "#2E8B57"
+    },
+    {
+      "name": "Ohio",
+      "abbreviation": "OH",
+      "description": "Ohio combines urban attractions in Cleveland, Cincinnati, and Columbus with Amish country, Lake Erie shores, and the Rock & Roll Hall of Fame.",
+      "linkUrl": "https://ohio.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Ohio",
+      "hoverColor": "#B22222"
+    },
+    {
+      "name": "Oklahoma",
+      "abbreviation": "OK",
+      "description": "Oklahoma blends Native American culture, western heritage, Route 66 attractions, and the unique landscape of the Wichita Mountains.",
+      "linkUrl": "https://www.ok.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Oklahoma",
+      "hoverColor": "#FF8C00"
+    },
+    {
+      "name": "Oregon",
+      "abbreviation": "OR",
+      "description": "Oregon offers spectacular Pacific coastline, the Columbia River Gorge, Portland's vibrant culture, and Crater Lake National Park.",
+      "linkUrl": "https://www.oregon.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Oregon",
+      "hoverColor": "#228B22"
+    },
+    {
+      "name": "Pennsylvania",
+      "abbreviation": "PA",
+      "description": "Pennsylvania combines Philadelphia's historic sites, Pittsburgh's renewal, Amish country, and Gettysburg's Civil War significance.",
+      "linkUrl": "https://www.pa.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Pennsylvania",
+      "hoverColor": "#4682B4"
+    },
+    {
+      "name": "Rhode Island",
+      "abbreviation": "RI",
+      "description": "Rhode Island, the smallest state, offers Newport mansions, Providence culture, historic sailing traditions, and beautiful coastal scenery.",
+      "linkUrl": "https://www.ri.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Rhode Island",
+      "hoverColor": "#4169E1"
+    },
+    {
+      "name": "South Carolina",
+      "abbreviation": "SC",
+      "description": "South Carolina features Charleston's historic charm, Myrtle Beach, Hilton Head Island resorts, and rich Southern heritage.",
+      "linkUrl": "https://sc.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience South Carolina",
+      "hoverColor": "#6495ED"
+    },
+    {
+      "name": "South Dakota",
+      "abbreviation": "SD",
+      "description": "South Dakota is home to Mount Rushmore, Badlands National Park, historic Deadwood, and the annual Sturgis Motorcycle Rally.",
+      "linkUrl": "https://sd.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit South Dakota",
+      "hoverColor": "#B8860B"
+    },
+    {
+      "name": "Tennessee",
+      "abbreviation": "TN",
+      "description": "Tennessee offers Nashville's country music scene, Memphis blues, Great Smoky Mountains National Park, and Graceland.",
+      "linkUrl": "https://www.tn.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Tennessee",
+      "hoverColor": "#FFA500"
+    },
+    {
+      "name": "Texas",
+      "abbreviation": "TX",
+      "description": "Texas, the 'Lone Star State,' combines big city life in Houston and Dallas with the historic Alamo, Gulf Coast beaches, and Hill Country scenery.",
+      "linkUrl": "https://www.texas.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Texas",
+      "hoverColor": "#B22222"
+    },
+    {
+      "name": "Utah",
+      "abbreviation": "UT",
+      "description": "Utah features the 'Mighty Five' national parks, world-class skiing around Salt Lake City, and Mormon heritage sites.",
+      "linkUrl": "https://utah.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience Utah",
+      "hoverColor": "#FF4500"
+    },
+    {
+      "name": "Vermont",
+      "abbreviation": "VT",
+      "description": "Vermont offers picturesque New England villages, Green Mountain forests, ski resorts, maple syrup traditions, and fall foliage tours.",
+      "linkUrl": "https://www.vermont.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Vermont",
+      "hoverColor": "#2E8B57"
+    },
+    {
+      "name": "Virginia",
+      "abbreviation": "VA",
+      "description": "Virginia combines historical sites like Colonial Williamsburg and Monticello with Shenandoah National Park and Virginia Beach.",
+      "linkUrl": "https://www.virginia.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Virginia",
+      "hoverColor": "#4682B4"
+    },
+    {
+      "name": "Washington",
+      "abbreviation": "WA",
+      "description": "Washington state features Seattle's iconic Space Needle, Mount Rainier, Olympic National Park, and the unique San Juan Islands.",
+      "linkUrl": "https://access.wa.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Discover Washington",
+      "hoverColor": "#32CD32"
+    },
+    {
+      "name": "West Virginia",
+      "abbreviation": "WV",
+      "description": "West Virginia, the 'Mountain State,' offers whitewater rafting, the New River Gorge Bridge, Appalachian culture, and scenic mountain drives.",
+      "linkUrl": "https://www.wv.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Experience West Virginia",
+      "hoverColor": "#6B8E23"
+    },
+    {
+      "name": "Wisconsin",
+      "abbreviation": "WI",
+      "description": "Wisconsin combines Milwaukee's brewery heritage, Madison's college town vibe, Door County's charm, and the unique Wisconsin Dells.",
+      "linkUrl": "https://www.wisconsin.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Visit Wisconsin",
+      "hoverColor": "#CD5C5C"
+    },
+    {
+      "name": "Wyoming",
+      "abbreviation": "WY",
+      "description": "Wyoming's natural wonders include Yellowstone and Grand Teton National Parks, Devils Tower, and the authentic western experience of Jackson Hole.",
+      "linkUrl": "https://www.wyo.gov",
+      "linkTarget": "_blank",
+      "linkLabel": "Explore Wyoming",
+      "hoverColor": "#8A2BE2"
+    }
+  ]
+}
