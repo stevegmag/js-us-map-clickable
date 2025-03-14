@@ -23,6 +23,8 @@ function initializeStateMap(options = {}) {
   
   // Create tooltip if enabled
   let tooltip;
+  let tooltipUpdateTimer = null;
+  
   if (config.showTooltip) {
     tooltip = document.createElement('div');
     tooltip.id = 'state-tooltip';
@@ -99,6 +101,17 @@ function initializeStateMap(options = {}) {
               </a>
             `;
             tooltip.style.display = 'block';
+            
+            // Add mousemove event listener to update tooltip position
+            const moveHandler = (e) => updateTooltipPosition(e);
+            path.addEventListener('mousemove', moveHandler);
+            
+            // Remove mousemove listener when mouse leaves
+            path.addEventListener('mouseleave', () => {
+              path.removeEventListener('mousemove', moveHandler);
+            }, { once: true });
+            
+            // Initial position update
             updateTooltipPosition(e);
           }
         });
@@ -256,7 +269,6 @@ function initializeStateMap(options = {}) {
     const mapContainer = document.getElementById(config.mapId).parentElement;
     const legend = document.createElement('div');
     legend.innerHTML = `
-      <h3>United States Interactive Map</h3>
       <p>Hover over a state to see details${config.enableLinks ? '. Click to visit the state website' : ''}.</p>
       <p class="keyboard-instructions">
         Use the tab or arrow keys to navigate between states, Enter or Space to go to the state's website/details.
@@ -270,47 +282,45 @@ function initializeStateMap(options = {}) {
     currentStateIndicator.setAttribute('aria-live', 'polite');
     currentStateIndicator.className = 'current-state';
     mapContainer.appendChild(currentStateIndicator);
-
-    // Update the indicator when state changes
-    path.addEventListener('focus', function() {
-        currentStateIndicator.textContent = `Current state: ${state.name}`;
-    });
   }
   
   // Function to update tooltip position
   function updateTooltipPosition(e) {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+    if (!tooltip) return;
     
-    // Get viewport dimensions
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    
-    // Get tooltip dimensions
-    const tooltipWidth = tooltip.offsetWidth;
-    const tooltipHeight = tooltip.offsetHeight;
-    
-    // Calculate position to ensure tooltip stays in viewport
-    let left = mouseX + 15;
-    let top = mouseY + 15;
-    
-    // Adjust if tooltip would extend beyond right edge
-    if (left + tooltipWidth > viewportWidth) {
-      left = mouseX - tooltipWidth - 15;
+    if (tooltipUpdateTimer) {
+      cancelAnimationFrame(tooltipUpdateTimer);
     }
-    
-    // Adjust if tooltip would extend beyond bottom edge
-    if (top + tooltipHeight > viewportHeight) {
-      top = mouseY - tooltipHeight - 15;
-    }
-    
-    tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${top}px`;
-    
-    // Ensure tooltip is associated with current focused element
-    tooltip.setAttribute('role', 'tooltip');
-    tooltip.setAttribute('id', 'state-tooltip');
-    e.target.setAttribute('aria-describedby', 'state-tooltip');
+
+    tooltipUpdateTimer = requestAnimationFrame(() => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      
+      // Get viewport dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      // Get tooltip dimensions
+      const tooltipWidth = tooltip.offsetWidth;
+      const tooltipHeight = tooltip.offsetHeight;
+      
+      // Calculate position to ensure tooltip stays in viewport
+      let left = mouseX + 15;
+      let top = mouseY + 15;
+      
+      // Adjust if tooltip would extend beyond right edge
+      if (left + tooltipWidth > viewportWidth) {
+        left = mouseX - tooltipWidth - 15;
+      }
+      
+      // Adjust if tooltip would extend beyond bottom edge
+      if (top + tooltipHeight > viewportHeight) {
+        top = mouseY - tooltipHeight - 15;
+      }
+      
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    });
   }
 
   loadStateData(config.statesData)
