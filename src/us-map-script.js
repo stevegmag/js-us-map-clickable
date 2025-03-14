@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Option 1: Load from external JSON file
   console.log('DOMContentLoaded evt listener');
   initializeStateMap({
-    statesData: './data/us-states-data.json', 
+    statesData: '../data/us-states-data.json', 
     mapId: 'us-map',
     showTooltip: true,
     enableLinks: true
