@@ -313,30 +313,9 @@ function initializeStateMap(options = {}) {
     e.target.setAttribute('aria-describedby', 'state-tooltip');
   }
 
-  // Load data and initialize map
-  if (typeof config.statesData === 'string') {
-    // If statesData is a string, assume it's a URL and fetch it
-    fetch(config.statesData)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
-        }
-        let data = response.json();
-        console.log('response.ok', data);
-        return data;
-      })
-      .then(data => { 
-        setupMap(data);
-      })
-      .catch(error => {
-        console.error('Error loading states data:', error);
-      });
-  } else if (config.statesData) {
-    // If statesData is an object, use it directly
-    setupMap(config.statesData);
-  } else {
-    console.error('No states data provided. Please provide a URL or data object.');
-  }
+  loadStateData(config.statesData)
+    .then(data => setupMap(data))
+    .catch(error => console.error(error));
 }
 
 // Usage examples
@@ -344,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Option 1: Load from external JSON file
   console.log('DOMContentLoaded evt listener');
   initializeStateMap({
-    statesData: './data/us-states-data.json', 
+    statesData: './data/us-states-data.json',  // Relative to index.html
     mapId: 'us-map',
     showTooltip: true,
     enableLinks: true
@@ -373,3 +352,32 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   */
 });
+
+// Move loadStateData outside of initializeStateMap
+async function loadStateData(statesData) {
+  if (typeof statesData === 'string') {
+    try {
+      const response = await fetch(statesData);
+      if (!response.ok) {
+        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log('response.ok', data);
+      return data;
+    } catch (error) {
+      console.error('Error loading states data:', error);
+      throw error;
+    }
+  } else if (statesData) {
+    return statesData;
+  }
+  throw new Error('No states data provided. Please provide a URL or data object.');
+}
+
+// Export both functions
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    initializeStateMap,
+    loadStateData
+  };
+}
