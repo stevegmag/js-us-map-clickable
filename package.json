@@ -4,7 +4,8 @@
   },
   "devDependencies": {
     "jest": "^29.0.0",
-    "jest-environment-jsdom": "^29.0.0"
+    "jest-environment-jsdom": "^29.0.0",
+    "node-fetch": "^2.6.1"
   },
   "jest": {
     "testEnvironment": "jsdom",

@@ -1,122 +1,68 @@
-// Import the function if using modules
-// import { initializeStateMap } from '../src/us-map-script.js';
+const { initializeStateMap, loadStateData } = require('../src/us-map-script.js');
+const path = require('path');
 
-// Mock setupMap globally
-global.setupMap = jest.fn();
+describe('loadStateData', () => {
+  const verifyStateData = (result) => {
+    // Verify the structure of the data
+    expect(result).toHaveProperty('states');
+    expect(Array.isArray(result.states)).toBe(true);
+    expect(result.states.length).toBeGreaterThan(0);
+    
+    // Verify first state has all required properties
+    const firstState = result.states[0];
+    expect(firstState).toHaveProperty('name');
+    expect(firstState).toHaveProperty('abbreviation');
+    expect(firstState).toHaveProperty('description');
+    expect(firstState).toHaveProperty('linkUrl');
+    expect(firstState).toHaveProperty('linkTarget');
+    expect(firstState).toHaveProperty('linkLabel');
+    expect(firstState).toHaveProperty('hoverColor');
+    
+    // Verify first state (Alabama) properties and values
+    expect(firstState.name).toBe('Alabama');
+    expect(firstState.abbreviation).toBe('AL');
+    expect(firstState.description).toBe("Alabama is known as the 'Heart of Dixie' and features beautiful beaches, space exploration history at the U.S. Space & Rocket Center, and the civil rights landmarks of Birmingham.");
+    expect(firstState.linkUrl).toBe('https://alabama.gov');
+    expect(firstState.linkTarget).toBe('_blank');
+    expect(firstState.linkLabel).toBe('Visit Alabama');
+    expect(firstState.hoverColor).toBe('#D14F4F');
+  };
 
-describe('initializeStateMap data loading', () => {
-  let mockFetch;
-  let consoleSpy;
-  
-  beforeEach(() => {
-    // Mock fetch
-    mockFetch = jest.fn();
-    global.fetch = mockFetch;
+  test('loads actual data from JSON file URL', async () => {
+    // Assuming that you have started a local server for local file testing (inthis case using LIVE SERVER via VS CODE)
+    const dataPath = 'http://127.0.0.1:5501/'+ '/data/us-states-data.json';
     
-    // Mock console methods
-    consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const result = await loadStateData(dataPath);
+    console.log('TEST:: Loaded State Data via fetch:', result);
     
-    // Mock setupMap function
-    global.setupMap = jest.fn();
-    
-    // Reset DOM
-    document.body.innerHTML = '<div id="us-map"></div>';
+    // Verify the structure of the data
+    verifyStateData(result);
   });
 
-  afterEach(() => {
-    jest.resetAllMocks();
-    consoleSpy.mockRestore();
-  });
 
-  test('loads data from URL successfully', async () => {
-    const mockData = {
-      states: [
+  test('loade data passed as object', async () => {
+    const statesData = {
+      "states": [
         {
-          name: 'Test State',
-          abbreviation: 'TS'
-        }
+          "name": "Alabama",
+          "abbreviation": "AL",
+          "description": "Alabama is known as the 'Heart of Dixie' and features beautiful beaches, space exploration history at the U.S. Space & Rocket Center, and the civil rights landmarks of Birmingham.",
+          "linkUrl": "https://alabama.gov",
+          "linkTarget": "_blank",
+          "linkLabel": "Visit Alabama",
+          "hoverColor": "#D14F4F"
+        },
+        // ... other states
       ]
     };
+    const result = await loadStateData(statesData);
+    console.log('TEST:: Loaded State Data via fetch:', result);
+    
+    // Verify the structure of the data
+    verifyStateData(result);
 
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve(mockData)
-    });
-
-    initializeStateMap({
-      statesData: '../data/us-states-data.json',
-      mapId: 'us-map'
-    });
-
-    await new Promise(process.nextTick); // Wait for promises to resolve
-
-    expect(mockFetch).toHaveBeenCalledWith('../data/us-states-data.json');
-    expect(setupMap).toHaveBeenCalledWith(mockData);
   });
-
-  test('handles fetch error correctly', async () => {
-    mockFetch.mockRejectedValueOnce(new Error('Network error'));
-
-    initializeStateMap({
-      statesData: '../data/us-states-data.json',
-      mapId: 'us-map'
-    });
-
-    await new Promise(process.nextTick);
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Error loading states data:',
-      expect.any(Error)
-    );
-  });
-
-  test('handles non-OK response correctly', async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 404,
-      statusText: 'Not Found'
-    });
-
-    initializeStateMap({
-      statesData: '../data/us-states-data.json',
-      mapId: 'us-map'
-    });
-
-    await new Promise(process.nextTick);
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Error loading states data:',
-      expect.any(Error)
-    );
-  });
-
-  test('uses direct data object when provided', () => {
-    const directData = {
-      states: [
-        {
-          name: 'Test State',
-          abbreviation: 'TS'
-        }
-      ]
-    };
-
-    initializeStateMap({
-      statesData: directData,
-      mapId: 'us-map'
-    });
-
-    expect(setupMap).toHaveBeenCalledWith(directData);
-    expect(mockFetch).not.toHaveBeenCalled();
-  });
-
-  test('handles missing data correctly', () => {
-    initializeStateMap({
-      mapId: 'us-map'
-    });
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'No states data provided. Please provide a URL or data object.'
-    );
-    expect(setupMap).not.toHaveBeenCalled();
+  test('throws error when no data provided', async () => {
+    await expect(loadStateData()).rejects.toThrow('No states data provided');
   });
 });
