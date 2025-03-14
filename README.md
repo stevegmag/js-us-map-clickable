@@ -20,3 +20,5 @@ preview: /public/images/SteveG-bigcopy.svg
 ---
 ## Javascript SVG US Map - Clickable
 Simple SVG US map with rollover state details and clickable state paths
+
+[view map page](https://stevegmag.github.io/js-us-map-clickable/)
