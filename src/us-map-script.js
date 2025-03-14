@@ -318,7 +318,39 @@ function initializeStateMap(options = {}) {
     .catch(error => console.error(error));
 }
 
-// Usage examples
+// loadStateData
+async function loadStateData(statesData) {
+  if (typeof statesData === 'string') {
+    try {
+      const response = await fetch(statesData);
+      if (!response.ok) {
+        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      // console.log('loadStateData:: response.ok:: ', data);
+      // console.log('loadStateData:: response.ok:: ', data.states);
+      return data;
+    } catch (error) {
+      console.error('Error loading states data:', error);
+      throw error;
+    }
+  } else if (statesData) {
+    return statesData;
+  }
+  throw new Error('No states data provided. Please provide a URL or data object.');
+}
+
+
+
+// Export both functions
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    initializeStateMap,
+    loadStateData
+  };
+}
+
+// Usage examples - load functions
 document.addEventListener('DOMContentLoaded', function() {
   // Option 1: Load from external JSON file
   console.log('DOMContentLoaded evt listener');
@@ -352,32 +384,3 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   */
 });
-
-// Move loadStateData outside of initializeStateMap
-async function loadStateData(statesData) {
-  if (typeof statesData === 'string') {
-    try {
-      const response = await fetch(statesData);
-      if (!response.ok) {
-        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
-      }
-      const data = await response.json();
-      console.log('response.ok', data);
-      return data;
-    } catch (error) {
-      console.error('Error loading states data:', error);
-      throw error;
-    }
-  } else if (statesData) {
-    return statesData;
-  }
-  throw new Error('No states data provided. Please provide a URL or data object.');
-}
-
-// Export both functions
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    initializeStateMap,
-    loadStateData
-  };
-}
