@@ -22,3 +22,6 @@ preview: /public/images/SteveG-bigcopy.svg
 Simple SVG US map with rollover state details and clickable state paths
 
 <a href="https://https://stevegmag.github.io/js-us-map-clickable/" target="_blank" tabindex="1" araia-label="View the interactive US map">View the interactive US Map Page</a>
+
+- added CI/CD to github pages
+- added Jest Testing 
