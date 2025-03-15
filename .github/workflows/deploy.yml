@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for proper versioning
       
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -35,3 +37,15 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Verify deployment
+        run: |
+          if [ "${{ steps.deployment.outcome }}" = "success" ]; then
+            echo "✅ Deployment successful"
+            echo "🌐 Site available at: ${{ steps.deployment.outputs.page_url }}"
+          else
+            echo "❌ Deployment failed"
+            exit 1
+          fi
