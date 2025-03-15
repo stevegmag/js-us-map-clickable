@@ -5,17 +5,19 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  pages: write      # This is required for deployment
+  id-token: write   # This is required for deployment
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -23,29 +25,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Fetch all history for proper versioning
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
-        
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'
-          
+          path: ./_site
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Verify deployment
-        run: |
-          if [ "${{ steps.deployment.outcome }}" = "success" ]; then
-            echo "✅ Deployment successful"
-            echo "🌐 Site available at: ${{ steps.deployment.outputs.page_url }}"
-          else
-            echo "❌ Deployment failed"
-            exit 1
-          fi
