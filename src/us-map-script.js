@@ -80,8 +80,8 @@ function initializeStateMap(options = {}) {
         path.setAttribute('role', 'button');
         path.setAttribute('aria-label', `${state.name}: ${state.description}`);
         
-        // Add mouse events
-        path.addEventListener('mouseenter', function(e) {
+        // Function to show tooltip
+        function showTooltip(e) {
           const currentStyle = path.getAttribute('style');
           const newStyle = currentStyle.replace(
             /fill:#[^;]+/, 
@@ -96,27 +96,31 @@ function initializeStateMap(options = {}) {
               <p>${state.description}</p>
               <a href="${state.linkUrl}" 
                  target="${state.linkTarget}"
+                 class="state-link"
                  aria-label="Visit ${state.name} website">
                  ${state.linkLabel}
               </a>
             `;
             tooltip.style.display = 'block';
             
-            // Add mousemove event listener to update tooltip position
-            const moveHandler = (e) => updateTooltipPosition(e);
-            path.addEventListener('mousemove', moveHandler);
-            
-            // Remove mousemove listener when mouse leaves
-            path.addEventListener('mouseleave', () => {
-              path.removeEventListener('mousemove', moveHandler);
-            }, { once: true });
-            
-            // Initial position update
-            updateTooltipPosition(e);
+            // For mouse events only, update position
+            if (e.type === 'mouseenter' || e.type === 'mousemove') {
+              updateTooltipPosition(e);
+            } else if (e.type === 'touchstart') {
+              // For touch events, position tooltip in center of viewport
+              const viewportWidth = window.innerWidth;
+              const viewportHeight = window.innerHeight;
+              const tooltipWidth = tooltip.offsetWidth;
+              const tooltipHeight = tooltip.offsetHeight;
+              
+              tooltip.style.left = `${(viewportWidth - tooltipWidth) / 2}px`;
+              tooltip.style.top = `${(viewportHeight - tooltipHeight) / 2}px`;
+            }
           }
-        });
+        }
 
-        path.addEventListener('mouseleave', function() {
+        // Function to hide tooltip
+        function hideTooltip() {
           const currentStyle = path.getAttribute('style');
           const newStyle = currentStyle.replace(
             /fill:#[^;]+/, 
@@ -127,17 +131,42 @@ function initializeStateMap(options = {}) {
           if (config.showTooltip) {
             tooltip.style.display = 'none';
           }
-        });
+        }
 
-        // Add click and keyboard activation handlers
-        const activateState = () => {
+        // Function to handle state activation
+        function activateState() {
           if (config.enableLinks) {
             window.open(state.linkUrl, state.linkTarget);
           }
-        };
+        }
 
-        path.addEventListener('click', activateState);
-        
+        // Mouse events
+        path.addEventListener('mouseenter', showTooltip);
+        path.addEventListener('mouseleave', hideTooltip);
+        path.addEventListener('mousemove', updateTooltipPosition);
+
+        // Touch events - simplified
+        let touchTimer;
+        path.addEventListener('touchstart', (e) => {
+          e.preventDefault(); // Prevent mouse events from firing
+          showTooltip(e);
+        }, { passive: false });
+
+        // Close tooltip when touching outside
+        document.addEventListener('touchstart', (e) => {
+          if (tooltip.style.display === 'block' && 
+              !path.contains(e.target) && 
+              !tooltip.contains(e.target)) {
+            hideTooltip();
+          }
+        }, { passive: true });
+
+        // Remove mousemove listener for touch devices
+        if ('ontouchstart' in window) {
+          path.removeEventListener('mousemove', updateTooltipPosition);
+        }
+
+        // Add click and keyboard activation handlers
         path.addEventListener('keydown', function(e) {
           const currentState = e.target;
           const currentRect = currentState.getBBox();
@@ -284,7 +313,7 @@ function initializeStateMap(options = {}) {
     mapContainer.appendChild(currentStateIndicator);
   }
   
-  // Function to update tooltip position
+  // Function to update tooltip position for both mouse and touch events
   function updateTooltipPosition(e) {
     if (!tooltip) return;
     
@@ -293,8 +322,9 @@ function initializeStateMap(options = {}) {
     }
 
     tooltipUpdateTimer = requestAnimationFrame(() => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+      // Get the correct coordinates whether it's a mouse or touch event
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       
       // Get viewport dimensions
       const viewportWidth = window.innerWidth;
@@ -304,18 +334,24 @@ function initializeStateMap(options = {}) {
       const tooltipWidth = tooltip.offsetWidth;
       const tooltipHeight = tooltip.offsetHeight;
       
+      // For touch events, position tooltip above the touch point to avoid finger obstruction
+      const offsetY = e.touches ? -tooltipHeight - 20 : 15;
+      
       // Calculate position to ensure tooltip stays in viewport
-      let left = mouseX + 15;
-      let top = mouseY + 15;
+      let left = clientX + 15;
+      let top = clientY + offsetY;
       
       // Adjust if tooltip would extend beyond right edge
       if (left + tooltipWidth > viewportWidth) {
-        left = mouseX - tooltipWidth - 15;
+        left = clientX - tooltipWidth - 15;
       }
       
-      // Adjust if tooltip would extend beyond bottom edge
+      // Adjust if tooltip would extend beyond edges
       if (top + tooltipHeight > viewportHeight) {
-        top = mouseY - tooltipHeight - 15;
+        top = viewportHeight - tooltipHeight - 10;
+      }
+      if (top < 10) {
+        top = 10;
       }
       
       tooltip.style.left = `${left}px`;
@@ -363,7 +399,7 @@ if (typeof module !== 'undefined' && module.exports) {
 // Usage examples - load functions
 document.addEventListener('DOMContentLoaded', function() {
   // Option 1: Load from external JSON file
-  console.log('DOMContentLoaded evt listener');
+  // console.log('DOMContentLoaded evt listener');
   initializeStateMap({
     statesData: './data/us-states-data.json',  // Relative to index.html
     mapId: 'us-map',

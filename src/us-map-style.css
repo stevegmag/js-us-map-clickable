@@ -78,3 +78,33 @@ path {
     min-width: 44px;
     min-height: 44px;
 }
+@media (pointer: coarse) {
+  #state-tooltip {
+    /* Center tooltip for touch devices */
+    position: fixed !important;
+    transform: translateX(-50%);
+    left: 50% !important;
+    max-width: 90vw;
+    width: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+
+  #state-tooltip .state-link {
+    display: block;
+    padding: 12px 16px;
+    margin-top: 10px;
+    background-color: #0066cc;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  #state-tooltip .state-link:active {
+    background-color: #0052a3;
+  }
+}
