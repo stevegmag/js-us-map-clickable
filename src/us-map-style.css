@@ -1,8 +1,13 @@
 body {
   background-color: #577A9E;
   color: #ffffff;
-  padding: 5vh 5vw;
+  padding: 5vh 0;
   text-align: center;
+}
+#us-map {
+  width: auto ;
+  height: 85%;
+  margin-left: -8vw
 }
 /* Ensure focus indicators are visible */
 path:focus {
